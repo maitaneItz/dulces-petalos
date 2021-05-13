@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { Home } from './Home';
 
 describe('Home', () => {
     it('muestra una flor', () => {
@@ -8,10 +9,3 @@ describe('Home', () => {
     })
 })
 
-function Home(){
-    return(
-        <>
-        Orquídea
-        </>
-    )
-}
