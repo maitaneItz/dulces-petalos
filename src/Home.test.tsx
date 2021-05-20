@@ -4,17 +4,17 @@ import { Home } from "./Home";
 import product from "./product.json";
 
 describe("Home", () => {
-  it("muestra una flor", () => {
+  it("muestra una flor", async () => {
     render(<Home />);
 
-    expect(screen.getByText("Orquídea")).toBeInTheDocument();
+    expect(await screen.findByText("Orquídea")).toBeInTheDocument();
   });
 
-  it("muestra varias flores", () => {
+  it("muestra varias flores", async () => {
     render(<Home />);
 
-    product.forEach((element) => {
-      expect(screen.getByText(element.name)).toBeInTheDocument();
+    product.forEach(async (element) => {
+      expect(await screen.findByText(element.name)).toBeInTheDocument();
     });
   });
 });
