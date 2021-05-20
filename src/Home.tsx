@@ -1,9 +1,12 @@
-import React from 'react';
+import React from "react";
+import product from "./product.json";
 
 export function Home() {
-    return (
-        <>
-            Orquídea
-        </>
-    );
+  return (
+    <>
+      {product.map((flower) => (
+        <p key={`${flower.id}${flower.name}`}>{flower.name}</p>
+      ))}
+    </>
+  );
 }
