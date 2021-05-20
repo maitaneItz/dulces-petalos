@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from "react";
 
+interface Flower {
+  id: string;
+  name: string;
+  binomialName: string;
+  imgUrl: string;
+  price: string
+}
+
 export function Home() {
-  const [product, setProduct] = useState<{ id: string; name: string }[]>([]);
+  const [product, setProduct] = useState<Flower[]>([]);
 
   useEffect(() => {
     fetch("https://dulces-petalos.herokuapp.com/api/product")
@@ -12,7 +20,12 @@ export function Home() {
   return (
     <>
       {product.map((flower) => (
-        <p key={`${flower.id}${flower.name}`}>{flower.name}</p>
+        <div key={`${flower.id}${flower.name}`}>
+          <p>{flower.name}</p>
+          <p>{flower.binomialName}</p>
+          <img alt={flower.name} src={flower.imgUrl} />
+          <p>{flower.price}</p>
+        </div>
       ))}
     </>
   );

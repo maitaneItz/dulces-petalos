@@ -7,8 +7,20 @@ describe("Home", () => {
   it("muestra el catálogo de flores", async () => {
     render(<Home />);
 
-    product.forEach(async (element) => {
-      expect(await screen.findByText(element.name)).toBeInTheDocument();
-    });
+    for (const flower of product) {
+      expect(await screen.findByText(flower.name)).toBeInTheDocument();
+    }
+  });
+
+  it("muestra nombre, nombre científico, imagen y precio de cada flor", async () => {
+    render(<Home />);
+
+    for (const flower of product) {
+      expect(await screen.findByText(flower.name)).toBeInTheDocument();
+      expect(await screen.findByText(flower.binomialName)).toBeInTheDocument();
+      const flowerImage = await screen.findByRole("img", { name: flower.name });
+      expect(flowerImage).toHaveAttribute("src", flower.imgUrl);
+      expect(await screen.findByText(flower.price)).toBeInTheDocument();
+    }
   });
 });
