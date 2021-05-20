@@ -4,7 +4,7 @@ import { Home } from "./Home";
 import product from "./product.json";
 
 describe("Home", () => {
-  it("muestra varias flores", async () => {
+  it("muestra el catálogo de flores", async () => {
     render(<Home />);
 
     product.forEach(async (element) => {
