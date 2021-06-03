@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { Flower } from "./Flower";
 import { getProduct } from "./getProduct";
-
-interface Flower {
-  id: string;
-  name: string;
-  binomialName: string;
-  imgUrl: string;
-  price: string;
-}
 
 export function Home() {
   const [product, setProduct] = useState<Flower[]>([]);
