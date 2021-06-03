@@ -12,13 +12,19 @@ export function Home() {
   return (
     <>
       {product.map((flower) => (
-        <div key={`${flower.id}${flower.name}`}>
-          <p>{flower.name}</p>
-          <p>{flower.binomialName}</p>
-          <img alt={flower.name} src={flower.imgUrl} />
-          <p>{flower.price}</p>
-        </div>
+        <FlowerSummary key={`${flower.id}${flower.name}`} flower={flower} />
       ))}
     </>
   );
 }
+
+const FlowerSummary: React.FC<{ flower: Flower }> = ({ flower }) => {
+  return (
+    <>
+      <p>{flower.name}</p>
+      <p>{flower.binomialName}</p>
+      <img alt={flower.name} src={flower.imgUrl} />
+      <p>{flower.price}</p>
+    </>
+  );
+};
