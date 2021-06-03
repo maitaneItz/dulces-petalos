@@ -1,8 +1,10 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
 import { Home } from "./Home";
 import product from "../fixtures/product.json";
 import userEvent from "@testing-library/user-event";
+import { server } from "../mocks/server";
+import { rest } from "msw";
 
 describe("Home", () => {
   it("muestra nombre, nombre científico, imagen y precio de cada flor", async () => {
@@ -26,9 +28,21 @@ describe("Home", () => {
     expect(screen.queryByText("Petunia")).not.toBeInTheDocument();
   });
 
-  it("al cargar, muestra un loader", () => {
+  it("al cargar, muestra un loader", async () => {
     render(<Home />);
 
     expect(screen.getByText(/Cargando/i)).toBeInTheDocument();
+    await waitForElementToBeRemoved(() => screen.queryByText(/Cargando/i))
+  })
+
+  it('si hay un error en la obtención de los artículos, muestra un aviso al usuario', async() => {
+    server.use(
+      rest.get('https://dulces-petalos.herokuapp.com/api/product', (req, res, ctx) => {
+        return res(ctx.status(500))
+      }),
+    )
+    render(<Home />);
+
+    expect(await screen.findByText(/ha habido un error/i)).toBeInTheDocument();
   })
 });

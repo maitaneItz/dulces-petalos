@@ -4,28 +4,36 @@ import { getProduct } from "../services/getProduct";
 
 export function Home() {
   const [product, setProduct] = useState<Flower[]>([]);
-  const [filter, setFilter] = useState<string>('');
+  const [filter, setFilter] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
-  
+  const [error, setError] = useState<boolean>(false);
+
   useEffect(() => {
-    getProduct().then(setProduct).finally(() => {setLoading(false)});
+    getProduct()
+      .then(setProduct)
+      .catch(() => setError(true))
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFilter(event.target.value);
-  }
+  };
 
   const filterFlowers = (flower: Flower) => flower.name.includes(filter);
 
-  if(loading) {
-    return(
-      <p>Cargando...</p>
-    )
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
+
+  if (error) {
+    return <p>Ha habido un error</p>;
   }
 
   return (
     <>
-      <input type="text" aria-label="filtro" onChange={handleChange}/>
+      <input type="text" aria-label="filtro" onChange={handleChange} />
       {product.filter(filterFlowers).map((flower) => (
         <FlowerSummary key={`${flower.id}${flower.name}`} flower={flower} />
       ))}
