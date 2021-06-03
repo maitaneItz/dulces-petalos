@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Flower } from "./Flower";
-import { getProduct } from "./getProduct";
+import { Flower } from "../models/Flower";
+import { getProduct } from "../services/getProduct";
 
 export function Home() {
   const [product, setProduct] = useState<Flower[]>([]);

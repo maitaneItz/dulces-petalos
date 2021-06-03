@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import product from "../product.json";
+import product from "../fixtures/product.json";
 
 export const handlers = [
   rest.get(

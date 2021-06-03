@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { Home } from "./Home";
-import product from "./product.json";
+import product from "../fixtures/product.json";
 
 describe("Home", () => {
   it("muestra nombre, nombre científico, imagen y precio de cada flor", async () => {
