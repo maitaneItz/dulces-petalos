@@ -17,7 +17,7 @@ describe("Home", () => {
     }
   });
 
-  it("se pueden filtrar las flores en base al nombre", async () => {
+  it("filtra las flores en base al nombre", async () => {
     render(<Home />);
 
     const filtro = screen.getByRole("textbox", {name: "filtro"});
