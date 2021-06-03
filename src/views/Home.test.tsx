@@ -19,12 +19,16 @@ describe("Home", () => {
 
   it("filtra las flores en base al nombre", async () => {
     render(<Home />);
-
-    const filtro = screen.getByRole("textbox", {name: "filtro"});
-
+    const filtro = await screen.findByRole("textbox", {name: "filtro"});
     userEvent.type(filtro, "Orquídea");
 
-    expect(await screen.findByText("Orquídea")).toBeInTheDocument();
+    expect(screen.getByText("Orquídea")).toBeInTheDocument();
     expect(screen.queryByText("Petunia")).not.toBeInTheDocument();
   });
+
+  it("al cargar, muestra un loader", () => {
+    render(<Home />);
+
+    expect(screen.getByText(/Cargando/i)).toBeInTheDocument();
+  })
 });

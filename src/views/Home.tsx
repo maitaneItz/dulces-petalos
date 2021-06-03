@@ -5,9 +5,10 @@ import { getProduct } from "../services/getProduct";
 export function Home() {
   const [product, setProduct] = useState<Flower[]>([]);
   const [filter, setFilter] = useState<string>('');
-
+  const [loading, setLoading] = useState<boolean>(true);
+  
   useEffect(() => {
-    getProduct().then(setProduct);
+    getProduct().then(setProduct).finally(() => {setLoading(false)});
   }, []);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -15,6 +16,12 @@ export function Home() {
   }
 
   const filterFlowers = (flower: Flower) => flower.name.includes(filter);
+
+  if(loading) {
+    return(
+      <p>Cargando...</p>
+    )
+  }
 
   return (
     <>
