@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { getProduct } from "./getProduct";
 
 interface Flower {
   id: string;
   name: string;
   binomialName: string;
   imgUrl: string;
-  price: string
+  price: string;
 }
 
 export function Home() {
   const [product, setProduct] = useState<Flower[]>([]);
 
   useEffect(() => {
-    fetch("https://dulces-petalos.herokuapp.com/api/product")
-      .then((response) => response.json())
-      .then(setProduct);
+    getProduct().then(setProduct);
   }, []);
 
   return (
