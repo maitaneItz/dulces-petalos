@@ -1,17 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Flower } from "../models/Flower";
 import { getProduct } from "../services/getProduct";
 
 export function Home() {
   const [product, setProduct] = useState<Flower[]>([]);
+  const [filter, setFilter] = useState<string>('');
 
   useEffect(() => {
     getProduct().then(setProduct);
   }, []);
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setFilter(event.target.value);
+  }
+
+  const filterFlowers = (flower: Flower) => flower.name.includes(filter);
+
   return (
     <>
-      {product.map((flower) => (
+      <input type="text" aria-label="filtro" onChange={handleChange}/>
+      {product.filter(filterFlowers).map((flower) => (
         <FlowerSummary key={`${flower.id}${flower.name}`} flower={flower} />
       ))}
     </>
